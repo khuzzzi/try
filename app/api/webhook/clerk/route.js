@@ -1,3 +1,4 @@
+'use server'
 import { Webhook } from 'svix';
 import { headers } from 'next/headers';
 import { createUser, deleteUser, updateUser } from '@/lib/actions/user.actions';
