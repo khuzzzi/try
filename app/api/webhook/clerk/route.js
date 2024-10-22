@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Webhook } from 'svix';
 import { headers } from 'next/headers';
 import { clerkClient } from '@clerk/nextjs/server';
@@ -148,3 +149,6 @@ export async function deleteUser(clerkId) {
     console.log(error);
   }
 }
+=======
+
+>>>>>>> d070736a81ca8efc32c11a12adc30890a0c3bced
