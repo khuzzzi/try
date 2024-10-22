@@ -1,5 +1,10 @@
 import { Webhook } from 'svix'
 import { headers } from 'next/headers'
+<<<<<<< HEAD
+=======
+import { WebhookEvent } from '@clerk/nextjs/server'
+// import { createUser, deleteUser, updateUser } from '@/lib/actions/user.actions'
+>>>>>>> 6462e85fb5dcd5c4fcf3c3778cbc67bb7371db9d
 import { clerkClient } from '@clerk/nextjs/server'
 import { NextResponse } from 'next/server'
 import { createUser, deleteUser, updateUser } from '@/lib/actions/user.action'
@@ -108,4 +113,9 @@ export async function POST(req) {
     console.error('Error processing webhook:', error)
     return new Response('Internal Server Error', { status: 500 }) // Catch all errors
   }
+<<<<<<< HEAD
+=======
+ 
+  return new Response('', { status: 200 })
+>>>>>>> 6462e85fb5dcd5c4fcf3c3778cbc67bb7371db9d
 }
