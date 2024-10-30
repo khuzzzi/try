@@ -8,13 +8,16 @@ import { useDropzone } from '@uploadthing/react';
 
 function FileUploader({ imageUrl, onFieldChange, setFiles }) {
   const onDrop = useCallback((acceptedFiles) => {
-    setFiles(acceptedFiles);
-    onFieldChange(convertFileToUrl(acceptedFiles[0]));
+    console.log('Accepted files:', acceptedFiles); // Debugging line
+    if (acceptedFiles.length > 0) {
+      setFiles(acceptedFiles);
+      onFieldChange(convertFileToUrl(acceptedFiles[0]));
+    }
   }, [setFiles, onFieldChange]);
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
-    accept: 'image/*' ? generateClientDropzoneAccept(['image/*']) : undefined,
+    accept: generateClientDropzoneAccept(['image/*']),
   });
 
   return (
@@ -24,10 +27,10 @@ function FileUploader({ imageUrl, onFieldChange, setFiles }) {
       <input {...getInputProps()} className="cursor-pointer" />
 
       {imageUrl ? (
-        <div className="flex h-full w-full flex-1 justify-center ">
+        <div className="flex h-full w-full flex-1 justify-center">
           <img
             src={imageUrl}
-            alt="image"
+            alt="Uploaded"
             width={250}
             height={250}
             className="w-full object-cover object-center"
@@ -47,4 +50,4 @@ function FileUploader({ imageUrl, onFieldChange, setFiles }) {
   );
 }
 
-export default FileUploader
+export default FileUploader;
