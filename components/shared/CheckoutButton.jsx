@@ -6,10 +6,10 @@ import Link from 'next/link'
 import Checkout from './Checkout'
 
 const CheckoutButton = ({userId,event}) => {
-  console.log(userId)
+//   console.log(userId)
 //   const hasEventFinished = new Date(event.startDate) < new Date();
 
-    console.log(event)
+    // console.log(event)
 
 
 

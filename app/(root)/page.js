@@ -1,18 +1,23 @@
 
+import CategoryFilter from "@/components/shared/CategoryFilter";
 import Collections from "@/components/shared/Collections";
+import Search from "@/components/shared/Search";
 import { Button } from "@/components/ui/button";
 import { getAllEvents } from "@/lib/actions/event.actions";
 import Image from "next/image";
 import Link from "next/link";
 
-export default async function Home() {
+export default async function Home({searchParams}) {
+
+  const searchText = searchParams?.query || ""
+  const category = searchParams?.category || ""
   const data = await getAllEvents({
-    query : '',
-    category : '',
+    query : searchText,
+    category : category,
     page : 1,
     limit : 6
   })
-  console.log(data)
+  // console.log(data)
   return (
     <>
       <section className="bg-gray-50 bg-dotted-pattern bg-contain py-5 md:py-10 flex">
@@ -34,8 +39,8 @@ export default async function Home() {
       <section id="events" className="wrapper my-8 flex flex-col gap-8 md:gap-12">
         <h2 className="h2-bold">Trusted By <br/> Thousands Of Events</h2>
         <div className="flex w-full max-sm:flex-col gap-5 md:flex-row">
-          Search
-          CategoryFilter
+          <Search/>
+          <CategoryFilter/>
         </div>
 
         <Collections 

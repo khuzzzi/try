@@ -16,20 +16,20 @@ const EventDetails = async ({params : {id} , searchParams}) => {
     eventId : event._id,
     page: searchParams.page
   })
-
+  
   const { userId: clerkId } = auth(); // Destructure and rename to clerkId
   
   let realUserId = null;
   
-    try {
-      // Query for the user using the Clerk ID
+  try {
+    // Query for the user using the Clerk ID
       const user = await User.findOne({ clerkId }); // Assuming you have a clerkId field in your User model
       // console.log(user); // Log the user object
       realUserId = user ? user._id.toString() : null;
     } catch (error) {
       console.error('Error fetching user:', error);
     }
-  
+    
   return (
     <>
     <section className='flex justify-center bg-gray-50 bg-dotted-pattern lg:mt-2 items-center'>

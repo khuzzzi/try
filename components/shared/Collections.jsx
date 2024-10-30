@@ -11,7 +11,7 @@ const Collections = ({
     page,
     urlParamName
 }) => {
-    console.log(data)
+    // console.log(data)
   return (
     <div>
         {data.length >= 0 ? (
