@@ -1,20 +1,24 @@
 import Collections from '@/components/shared/Collections';
 import { Button } from '@/components/ui/button';
 import {getUserEvents } from '@/lib/actions/event.actions';
+import { getOrdersByUser } from '@/lib/actions/order.actions';
+import { connectToDatabase } from '@/lib/mongodb/database';
 import User from '@/lib/mongodb/database/models/user.model';
 import { auth } from '@clerk/nextjs/server';
 import Link from 'next/link';
 
 const Page = async () => { // Make this function async
-    const { userId: clerkId } = auth(); // Destructure and rename to clerkId
-    
-   
-        const user = await User.findOne({ clerkId })
-        const organizer = user._id
+    await connectToDatabase()
         
-
-        const organizerData = await getUserEvents({organizer})
-        console.log(organizerData.length)
+    
+        const { userId: clerkId } = auth(); // Destructure and rename to clerkId
+        const user = await User.findOne({ clerkId })
+        const userId = user._id
+        
+        const orders = await getOrdersByUser({userId , page:1})
+        const orderedEvents = orders?.data.map((order)=>order.event || [] )
+        const organizerData = await getUserEvents({userId})
+        // console.log(organizerData.length)
   
 
     return (
@@ -43,7 +47,7 @@ const Page = async () => { // Make this function async
             {/* Uncomment when using Collections */}
             <section className="wrapper my-8">
                 <Collections
-                    data={organizerData}
+                    data={orderedEvents}
                     emptyTitle="No Events Tickets Purchased Yet"
                     emptyStateSubText="No Worries! Plenty Of Exciting Events To Explore"
                     collectionType="My_Tickets"

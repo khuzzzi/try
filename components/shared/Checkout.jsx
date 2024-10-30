@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react'
 import { Button } from '../ui/button'
 import { loadStripe } from '@stripe/stripe-js';
-import { checkoutOrder } from '@/lib/actions/order.actions';
+import { checkoutOrder, createOrder } from '@/lib/actions/order.actions';
 
 const Checkout = ({ event, userId }) => {
+  console.log("event",event)
     useEffect(() => {
         // Check to see if this is a redirect back from Checkout
         const query = new URLSearchParams(window.location.search);
@@ -24,10 +25,9 @@ const Checkout = ({ event, userId }) => {
             isFree: event.isFree,
             buyerId: userId
         };
-        console.log(order);
-
+        
         try {
-            const checkoutUrl = await checkoutOrder({ order });
+            const checkoutUrl = await checkoutOrder( order );
             if (checkoutUrl) {
                 window.location.href = checkoutUrl; // Redirect on the client side
             }
